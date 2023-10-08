@@ -37,7 +37,7 @@ int main(int argc, char** argv)
     ros::NodeHandle n;
     ros::Subscriber lidar_sub = n.subscribe<sensor_msgs::LaserScan>("laser_1", 10, lidarCallback);
     ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 10);
-    ros::param::param("wall_dist", wall_dist, 0.1);
+    ros::param::param("wall_dist", wall_dist, 0.5);
     ros::Rate loop_rate(10);
 
     while (ros::ok())
