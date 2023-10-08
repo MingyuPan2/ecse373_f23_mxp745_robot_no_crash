@@ -3,5 +3,5 @@
     <node name="lab4_publisher_node" type="lab4_publisher_node" pkg="robot_no_crash" ns="$(arg robot_ns)" />
     <node name="lab4_subscriber_node" type="lab4_subscriber_node" pkg="robot_no_crash" ns="$(arg robot_ns)" />
     <node name="lab4_parameter_node" type="lab4_parameter_node" pkg="robot_no_crash" ns="$(arg robot_ns)" />
-    <node name="lab4_avoidance_node" type="lab4_avoidance_node" pkg="robot_no_crash" ns="$(arg robot_ns)" />
+    <node name="lab4_avoidance_node" type="lab4_avoidance_node" pkg="robot_no_crash" ns="$(arg robot_ns)" output="screen"/>
 </launch>

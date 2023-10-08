@@ -10,7 +10,8 @@ double wall_dist;
 
 void lidarCallback(const sensor_msgs::LaserScan::ConstPtr& msg2)
 {
-    ROS_INFO("Laser?: [%d]", msg2->header.seq);
+	ROS_INFO_ONCE("Wall distance is now: [%2.2f]", wall_dist);
+    msg2->header.seq;
 
     bool obstacle = false;
     for (float range : msg2->ranges)
@@ -22,12 +23,14 @@ void lidarCallback(const sensor_msgs::LaserScan::ConstPtr& msg2)
         }
     }
     if (obstacle)
-    {	desired_velocity.linear.x = 0.0;
-        desired_velocity.angular.z = 1.0;
+    {	 desired_velocity.linear.x = 0.0;
+        desired_velocity.angular.z = 0.5;
+        ROS_WARN("Detected obstacle, turning...");
     }
     else {
     	desired_velocity.linear.x = 0.5;
         desired_velocity.angular.z = 0.0;
+        ROS_INFO("No obstacle detected");
     }
 }
 
