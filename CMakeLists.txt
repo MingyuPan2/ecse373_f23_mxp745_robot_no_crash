@@ -139,6 +139,7 @@ include_directories(
 add_executable(lab4_publisher_node src/lab4_publisher.cpp)
 add_executable(lab4_subscriber_node src/lab4_subscriber.cpp)
 add_executable(lab4_parameter_node src/lab4_parameter.cpp)
+add_executable(lab4_avoidance_node src/lab4_avoidance.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -158,6 +159,7 @@ add_executable(lab4_parameter_node src/lab4_parameter.cpp)
 target_link_libraries(lab4_publisher_node ${catkin_LIBRARIES})
 target_link_libraries(lab4_subscriber_node ${catkin_LIBRARIES})
 target_link_libraries(lab4_parameter_node ${catkin_LIBRARIES})
+target_link_libraries(lab4_avoidance_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##

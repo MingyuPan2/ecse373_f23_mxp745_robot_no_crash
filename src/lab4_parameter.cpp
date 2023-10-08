@@ -6,9 +6,10 @@ int main(int argc, char** argv)
     ros::NodeHandle n;
 
 	double wall_dist = 0.0;
+	std::string param_name = "/robot0/wall_dist";
 	ROS_INFO_ONCE("wall_dist began with: [%2.2f]", wall_dist);
 	
-	if (n.getParamCached("wall_dist", wall_dist)) 
+	if (n.getParamCached(param_name, wall_dist)) 
 	{
 	ROS_INFO("wall_dist was updated to: [%2.2f]", wall_dist);
 	}
@@ -16,4 +17,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-

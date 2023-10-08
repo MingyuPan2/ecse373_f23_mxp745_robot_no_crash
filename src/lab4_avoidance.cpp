@@ -4,38 +4,30 @@
 #include <geometry_msgs/Twist.h>
 
 sensor_msgs::LaserScan* lidar_out;
-geometry_msgs::Twist* desired_velocity;
+geometry_msgs::Twist desired_velocity;
+geometry_msgs::Twist output_velocity;
+double wall_dist;
 
-// LIDAR callback function
-void lidarCallback(const sensor_msgs::LaserScan::ConstPtr& msg)
+void lidarCallback(const sensor_msgs::LaserScan::ConstPtr& msg2)
 {
-    // Store the latest LIDAR data in the global variable
-    lidar_out = msg;
+    ROS_INFO("Laser?: [%d]", msg2->header.seq);
 
-    // Implement obstacle avoidance logic here based on LIDAR data and wall_dist
-    // Example: Check LIDAR data to see if any obstacle is closer than wall_dist
-    bool obstacle_detected = false;
-    for (float range : msg->ranges)
+    bool obstacle = false;
+    for (float range : msg2->ranges)
     {
         if (range < wall_dist)
         {
-            obstacle_detected = true;
-            break; // Stop checking once an obstacle is detected
+            obstacle = true;
+            break;
         }
     }
-
-    // Adjust the desired velocity based on obstacle detection
-    if (obstacle_detected)
-    {
-        // If an obstacle is detected, stop the robot
-        desired_velocity.linear.x = 0.0;
-        desired_velocity.angular.z = 0.0;
+    if (obstacle)
+    {	desired_velocity.linear.x = 0.0;
+        desired_velocity.angular.z = 1.0;
     }
-    else
-    {
-        // If no obstacle is detected, continue moving forward
-        desired_velocity.linear.x = 0.2; // Adjust the forward velocity as needed
-        desired_velocity.angular.z = 0.0; // No angular velocity
+    else {
+    	desired_velocity.linear.x = 0.5;
+        desired_velocity.angular.z = 0.0;
     }
 }
 
@@ -43,22 +35,13 @@ int main(int argc, char** argv)
 {
     ros::init(argc, argv, "obstacle_avoidance_node");
     ros::NodeHandle n;
-
-    // Subscribe to the LIDAR topic
-    ros::Subscriber lidar_sub = n.subscribe("lidar_topic", 1, lidarCallback);
-
-    // Create a publisher to control the robot's velocity
-    ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-
-    // Set the wall_dist parameter (already set in roslaunch)
-    double wall_dist;
-    ros::param::param("wall_dist", wall_dist, 0.5);
-
-    ros::Rate loop_rate(10);  // Adjust the rate as needed
+    ros::Subscriber lidar_sub = n.subscribe<sensor_msgs::LaserScan>("laser_1", 10, lidarCallback);
+    ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 10);
+    ros::param::param("wall_dist", wall_dist, 0.1);
+    ros::Rate loop_rate(10);
 
     while (ros::ok())
     {
-        // Publish the desired velocity to control the robot
         cmd_vel_pub.publish(desired_velocity);
 
         ros::spinOnce();

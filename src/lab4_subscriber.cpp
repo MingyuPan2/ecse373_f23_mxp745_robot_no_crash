@@ -17,7 +17,7 @@ int main(int argc, char** argv)
     ros::NodeHandle n;
     ros::Publisher publisher_handle = n.advertise<geometry_msgs::Twist>("cmd_vel", 10);
     p_pub = &publisher_handle;
-    ros::Subscriber desvelSubscriber = n.subscribe<geometry_msgs::Twist>("des_vel", 10, desvelCallback);
+    ros::Subscriber des_vel_sub = n.subscribe<geometry_msgs::Twist>("des_vel", 10, desvelCallback);
     ros::spin();
     return 0;
 }
