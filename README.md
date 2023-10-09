@@ -66,6 +66,42 @@ To launch the STDR simulator with the map and gui, use the following command:
 	
 To create a robot, at the top of the window, click "Create robot". THen, in the popped up window, go to "Laser" and click the green plus sign. Then, at the bottom of the popped up window, click "Load robot to map". Use the cursor to select a point on the map and the robot will be added. 
 
-### Teleoperate the Robot
+#### -teleoperate the robot-
 
+rqt_gui can be used to control the robot. To bring up rqt_gui, use the following:
 
+	rosun rqt_gui rqt_gui
+	
+At the top box of rqt_gui, replaec the "/cmd_vel" to "/robot0/des_vel"
+
+### Creating Nodes & launch files
+
+Several nodes needs to be created to enable correct subscribing and publishing of relevant topics. For a good reference, follow P6 to P9 of Lab 4. All the node files are in the "src" and "launch" folder of the package.
+
+### Run the Robot
+
+Run command:
+
+	roslaunch robot_no_crash lab4.launch
+	
+rqt_gui is included and can be used if needed.
+
+The robot was given a default velocity of 0.5, so as soon as robot0 is put into the map, it will start moving. 
+
+If an obstacle is too close based ont eh wall_dist value, the robot will turn counterclockwise at 0.5 speed until the path is clear to keep moving forward at 0.5 speed. 
+
+It is possible to use rqt_gui to adjust the speed and turning speed of the robot. 
+
+#### Set wall_dist
+
+The default wall_dist value is 0.5 as set in the "lab4_avoidance" file. It is also possible to set the value in lab4.launch file. THe default value in lab4.launch is 0.6. 
+
+## Problem that Needs Fixing
+
+One main problem I encountered while playing with wall_dist is that, due to the way I setup my robot, it is possible for the robot to be stuch in a corner and continuously turning in-place if the "Angle Span" is set to the 270 degrees. Setting the span to around 90 degrees for example, solves this problem. 
+
+This is because (for my code at least), at 270 degrees angle span, while the robot is turning counterclockwise, the left-most laser ray may detect the distance between the wall and robot to be less than 0.5, prompting the robot to keep turning. Then, the right-most laser ray detects the distance is less than 0.5, again prompting the robot to turn. IF the left-most laser ray is too close to the wall again, a turning loop will begin. 
+
+This problem can be solved by reducing the Angle Span toaround 90 degrees, or manulally unstucking the robot using the sliders on rqt_gui.
+
+I
