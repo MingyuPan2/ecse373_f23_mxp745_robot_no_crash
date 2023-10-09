@@ -1,7 +1,17 @@
 <launch>
-    <arg name="robot_ns" default="robot0" />
+	/* Defines the namespace to robot0 for correct published information */
+    <arg name="robot_ns" default="robot0" /> 
+    
+    	/* The publisher node */
     <node name="lab4_publisher_node" type="lab4_publisher_node" pkg="robot_no_crash" ns="$(arg robot_ns)" />
+    
+    	/* The subscriber node */
     <node name="lab4_subscriber_node" type="lab4_subscriber_node" pkg="robot_no_crash" ns="$(arg robot_ns)" />
+    
+    	/* The parameter node, which output to the screen if the wall_dist parameter is changed when run */
     <node name="lab4_parameter_node" type="lab4_parameter_node" pkg="robot_no_crash" ns="$(arg robot_ns)" />
+    
+    	/* The obstacle avoidance node, used for detecting obstacle and turning without using rqt gui. Out put to screen if obstacle is detected */
     <node name="lab4_avoidance_node" type="lab4_avoidance_node" pkg="robot_no_crash" ns="$(arg robot_ns)" output="screen"/>
+    
 </launch>

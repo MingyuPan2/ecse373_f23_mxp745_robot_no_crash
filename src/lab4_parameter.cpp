@@ -1,5 +1,5 @@
 #include <ros/ros.h>
-
+	/* Below is the parameter node that publish to the screen if the wall_dist parameter is changed the the node is ran. */
 int main(int argc, char** argv)
 {
     ros::init(argc, argv, "lab4_parameter_node");

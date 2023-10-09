@@ -6,9 +6,10 @@
 
 int main(int argc, char **argv)
 {
+	/* Below is the publisher node, derived from the publisher node from the first lab */
     ros::init(argc, argv, "lab4_publisher_node");
     ros::NodeHandle n;
-    ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 10);
+    ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 10); /* reads the geometry_msgs::Twist data */
     ros::Rate loop_rate(1);
     
     int count = 0;
@@ -16,7 +17,7 @@ int main(int argc, char **argv)
     {
         geometry_msgs::Twist twist_msg;
         
-        /* (.data) not working
+        /* (.data) NOT WORKING. NOT need
         std::stringstream ss;
 	ss << "Linear V (x, y, z)= (" << twist_msg.linear.x << ", " << twist_msg.linear.y << ", " << twist_msg.linear.z << ")"
    	<< " Angular V (x, y, z)= (" << twist_msg.angular.x << ", " << twist_msg.angular.y << ", " << twist_msg.angular.z << ")";

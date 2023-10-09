@@ -4,9 +4,11 @@
 #include <sensor_msgs/LaserScan.h>
 #include "robot_no_crash/topic_name.h"
 
+	/* Below is the subscriber node, derived from Lab1. */
+
 ros::Publisher* p_pub;
 
-void desvelCallback(const geometry_msgs::Twist::ConstPtr& msg)
+void desvelCallback(const geometry_msgs::Twist::ConstPtr& msg) /* Callback funciton */
 {
     p_pub->publish(*msg);
 }

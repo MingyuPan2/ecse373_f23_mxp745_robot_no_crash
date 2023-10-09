@@ -1,8 +1,16 @@
 <launch>
+		/* Set the robot's desired wall distance parameter here. A value too high or too low has a higher chance of making the robot spin in place */
 	<param name="robot0/wall_dist" value="0.6" type="double" />
+	
+		/* Includes the robot_supervisor launch file that contains all the required nodes for the simulation to function */
 	<include file="$(find robot_no_crash)/launch/robot_supervisor.launch">
-	<remap from="laser_1" to="laser_0" />
+		<remap from="laser_1" to="laser_0" />
 	</include>
+	
+		/* Includes the stdr_launcher, where the server with map and gui will be launched for the robot to be put inside */
 	<include file="$(find stdr_launchers)/launch/server_with_map_and_gui.launch" />
+	
+		/* Start the rqt_gui. THe robot can be controlled manually if desired, or if the robot is pinning in-place */
 	<node name="rqt_gui" pkg="rqt_gui" type="rqt_gui" />
+	
 </launch>

@@ -3,6 +3,8 @@
 #include <sensor_msgs/LaserScan.h>
 #include <geometry_msgs/Twist.h>
 
+	/* Below is the node for the robot to take in lidar output and avoid an obstacle by turning counterclockwise and keep moving */
+
 sensor_msgs::LaserScan* lidar_out;
 geometry_msgs::Twist desired_velocity;
 geometry_msgs::Twist output_velocity;
@@ -40,7 +42,7 @@ int main(int argc, char** argv)
     ros::NodeHandle n;
     ros::Subscriber lidar_sub = n.subscribe<sensor_msgs::LaserScan>("laser_1", 10, lidarCallback);
     ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 10);
-    ros::param::param("wall_dist", wall_dist, 0.5);
+    ros::param::param("wall_dist", wall_dist, 0.5); /* Default to 0.5 */
     ros::Rate loop_rate(10);
 
     while (ros::ok())
