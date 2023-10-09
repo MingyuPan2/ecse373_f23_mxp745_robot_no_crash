@@ -74,7 +74,7 @@ rqt_gui can be used to control the robot. To bring up rqt_gui, use the following
 	
 At the top box of rqt_gui, replaec the "/cmd_vel" to "/robot0/des_vel"
 
-### Creating Nodes & launch files
+### Creating Node & launch files
 
 Several nodes needs to be created to enable correct subscribing and publishing of relevant topics. For a good reference, follow P6 to P9 of Lab 4. All the node files are in the "src" and "launch" folder of the package.
 
@@ -103,5 +103,3 @@ One main problem I encountered while playing with wall_dist is that, due to the 
 This is because (for my code at least), at 270 degrees angle span, while the robot is turning counterclockwise, the left-most laser ray may detect the distance between the wall and robot to be less than 0.5, prompting the robot to keep turning. Then, the right-most laser ray detects the distance is less than 0.5, again prompting the robot to turn. IF the left-most laser ray is too close to the wall again, a turning loop will begin. 
 
 This problem can be solved by reducing the Angle Span toaround 90 degrees, or manulally unstucking the robot using the sliders on rqt_gui.
-
-I
